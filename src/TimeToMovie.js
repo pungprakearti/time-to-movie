@@ -21,6 +21,7 @@ export default class TimeToMovie extends Component {
       show: 'selector',
       selected: null,
       minutes: null,
+      numMovies: null,
       movie: {
         'Blood Sport': { year: 1988, image: bloodSport, duration: 92 },
         Cyborg: { year: 1989, image: cyborg, duration: 86 },
@@ -47,13 +48,15 @@ export default class TimeToMovie extends Component {
       this.state.selected &&
       this.state.minutes > 0
     ) {
+      let numMovies =
+        this.state.minutes / this.state.movie[this.state.selected].duration;
+
       console.log(
         this.state.minutes / this.state.movie[this.state.selected].duration,
         this.state.selected
       );
 
-      //set defaults
-      this.setState({ minutes: null, selected: null, show: 'graphic' });
+      this.setState({ show: 'graphic', numMovies: numMovies });
     }
   }
 
