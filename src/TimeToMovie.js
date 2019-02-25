@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Selector from './Selector';
 import Graphic from './Graphic';
+
+//vhs covers
 import bloodSport from './images/bloodSport.jpg';
 import cyborg from './images/cyborg.jpg';
 import doubleImpact from './images/doubleImpact.jpg';
@@ -18,6 +20,7 @@ export default class TimeToMovie extends Component {
     this.state = {
       show: 'selector',
       selected: null,
+      minutes: null,
       movie: [
         { title: 'Blood Sport', year: 1988, image: bloodSport, duration: 92 },
         { title: 'Cyborg', year: 1989, image: cyborg, duration: 86 },
@@ -48,18 +51,27 @@ export default class TimeToMovie extends Component {
     };
 
     this.handleSelect = this.handleSelect.bind(this);
+    this.storeMinutes = this.storeMinutes.bind(this);
   }
 
   handleSelect(title) {
-    console.log(title);
     this.setState({ selected: title });
+  }
+
+  storeMinutes(minutes) {
+    this.setState({ minutes: minutes });
+    console.log('stored minutes: ', minutes);
   }
 
   render() {
     return (
       <div className="TimeToMovie-cont">
         {this.state.show === 'selector' ? (
-          <Selector movie={this.state.movie} select={this.handleSelect} />
+          <Selector
+            movie={this.state.movie}
+            select={this.handleSelect}
+            storeMinutes={this.storeMinutes}
+          />
         ) : (
           <Graphic />
         )}
