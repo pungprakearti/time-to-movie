@@ -5,7 +5,8 @@ export default class Selector extends Component {
     super(props);
 
     this.state = {
-      value: ''
+      value: '',
+      selected: null
     };
 
     this.getSelect = this.getSelect.bind(this);
@@ -20,7 +21,7 @@ export default class Selector extends Component {
   handleSubmit(evt) {
     evt.preventDefault();
     this.props.storeMinutes(this.state.value);
-    this.setState({ value: '' });
+    this.setState({ value: '', selected: null });
   }
 
   handleChange(evt) {
@@ -28,17 +29,18 @@ export default class Selector extends Component {
   }
 
   render() {
+    let movie = this.props.movie;
     return (
       <div className="Selector-cont">
-        {this.props.movie.map(img => {
+        {Object.keys(this.props.movie).map(title => {
           return (
-            <div className={`Selector-img-cont`}>
+            <div className={`Selector-img-cont`} key={title}>
               <img
-                src={img.image}
-                alt={`${img.title} movie poster`}
-                key={img.title}
+                src={movie[title].image}
+                alt={`${title} movie poster`}
+                key={title}
                 height={'200px'}
-                className={img.title}
+                className={title}
                 onClick={this.getSelect}
               />
             </div>

@@ -12,7 +12,7 @@ import kickBoxer from './images/kickBoxer.jpg';
 import lionHeart from './images/lionHeart.jpg';
 import streetFighter from './images/streetFighter.jpg';
 import timeCop from './images/timeCop.jpg';
-import universalSoldier from './images/universalSoldier.jpg';
+import univSoldier from './images/universalSoldier.jpg';
 
 export default class TimeToMovie extends Component {
   constructor(props) {
@@ -21,37 +21,40 @@ export default class TimeToMovie extends Component {
       show: 'selector',
       selected: null,
       minutes: null,
-      movie: [
-        { title: 'Blood Sport', year: 1988, image: bloodSport, duration: 92 },
-        { title: 'Cyborg', year: 1989, image: cyborg, duration: 86 },
-        {
-          title: 'Double Impact',
-          year: 1991,
-          image: doubleImpact,
-          duration: 110
-        },
-        { title: 'Double Team', year: 1997, image: doubleTeam, duration: 93 },
-        { title: 'Hard Target', year: 1993, image: hardTarget, duration: 97 },
-        { title: 'Kickboxer', year: 1989, image: kickBoxer, duration: 97 },
-        { title: 'Lionheart', year: 1990, image: lionHeart, duration: 108 },
-        {
-          title: 'Street Fighter',
-          year: 1994,
-          image: streetFighter,
-          duration: 102
-        },
-        { title: 'Time Cop', year: 1994, image: timeCop, duration: 99 },
-        {
-          title: 'Universal Soldier',
-          year: 1992,
-          image: universalSoldier,
-          duration: 102
-        }
-      ]
+      movie: {
+        'Blood Sport': { year: 1988, image: bloodSport, duration: 92 },
+        Cyborg: { year: 1989, image: cyborg, duration: 86 },
+        'Double Impact': { year: 1991, image: doubleImpact, duration: 110 },
+        'Double Team': { year: 1997, image: doubleTeam, duration: 93 },
+        'Hard Target': { year: 1993, image: hardTarget, duration: 97 },
+        Kickboxer: { year: 1989, image: kickBoxer, duration: 97 },
+        Lionheart: { year: 1990, image: lionHeart, duration: 108 },
+        'Street Fighter': { year: 1994, image: streetFighter, duration: 102 },
+        'Time Cop': { year: 1994, image: timeCop, duration: 99 },
+        'Universal Soldier': { year: 1992, image: univSoldier, duration: 102 }
+      }
     };
 
     this.handleSelect = this.handleSelect.bind(this);
     this.storeMinutes = this.storeMinutes.bind(this);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    //
+    //calculate number of movies to watch to equal duration entered
+    if (
+      prevState.minutes !== this.state.minutes &&
+      this.state.selected &&
+      this.state.minutes > 0
+    ) {
+      console.log(
+        this.state.minutes / this.state.movie[this.state.selected].duration,
+        this.state.selected
+      );
+
+      //set defaults
+      this.setState({ minutes: null, selected: null, show: 'graphic' });
+    }
   }
 
   handleSelect(title) {
@@ -60,7 +63,6 @@ export default class TimeToMovie extends Component {
 
   storeMinutes(minutes) {
     this.setState({ minutes: minutes });
-    console.log('stored minutes: ', minutes);
   }
 
   render() {
