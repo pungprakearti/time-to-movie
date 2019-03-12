@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 export default class Graphic extends Component {
   render() {
-    return <div>Graphic</div>;
+    console.log(this.props)
+    return <div className="graphic__cont">Graphic</div>
   }
 }
